@@ -123,46 +123,46 @@ function mean_multi(values)
 	fwrite(file, mean(hand_grab_strength));
 	fwrite(file, stdDeviation(hand_grab_strength));
 	
-	for(var i=0; i<5; i++)
+	for(i=0; i<5; i++)
 	{
 		
-		for(var j=0; j<3; j++)
+		for(j=0; j<3; j++)
 		{
 			fwrite(file, mean(finger_dip[i][j]));
 			
 		}
 	}
-	for(var i = 0; i<5; i++)
+	for(i = 0; i<5; i++)
 	{
-		for(var j=0; j<3; j++)
+		for(j=0; j<3; j++)
 		{
 			fwrite(file, stdDeviation(finger_dip[i][j]));
 		}
 	}
-	for(var i = 0; i<5; i++)
+	for(i = 0; i<5; i++)
 	{
-		for(var j=0; j<3; j++)
+		for(j=0; j<3; j++)
 		{
 			fwrite(file, mean(finger_pip[i][j]));
 		}
 	}
-	for(var i = 0; i<5; i++)
+	for(i = 0; i<5; i++)
 	{
-		for(var j=0; j<3; j++)
+		for(j=0; j<3; j++)
 		{
 				fwrite(file, stdDeviation(finger_pip[i][j]));
 		}
 	}
-	for(var i = 0; i<5; i++)
+	for(i = 0; i<5; i++)
 	{
-		for(var j=0; j<3; j++)
+		for(j=0; j<3; j++)
 		{
 			fwrite(file, mean(finger_mcp[i][j]));
 		}
 	}
-	for(var i = 0; i<5; i++)
+	for(i = 0; i<5; i++)
 	{
-		for(var j=0; j<3; j++)
+		for(j=0; j<3; j++)
 		{
 			fwrite(file, stdDeviation(finger_mcp[i][j]));		
 		}
@@ -170,6 +170,7 @@ function mean_multi(values)
 	
       output.innerHTML = frameString;
     }
+	}
     });
     
     </script>
