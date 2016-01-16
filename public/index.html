@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>ASL Teacher</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="Teaching a Leap Motion device to recognize the American Sign Language alphabet.">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0">
+    <meta name="application-name" content="ASL Teacher">
+    <!-- TODO: logo/favicon design
+    <link rel="icon" sizes="any" href="assets/images/logo.svg" type="image/svg+xml">
+    <link rel="shortcut icon" href="assets/images/favicon.ico" type="image/x-icon">-->
+    <link rel="stylesheet" href="https://storage.googleapis.com/code.getmdl.io/1.0.6/material.indigo-pink.min.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" type="text/css">
+    <link rel="stylesheet" href="assets/css/sweetalert.css" type="text/css">
+    <link rel="stylesheet" href="assets/css/main.css" type="text/css">
+    <script src="https://storage.googleapis.com/code.getmdl.io/1.0.6/material.min.js"></script>
+    <script src="https://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/md5.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="assets/js/sweetalert.min.js"></script>
+    <script src="assets/js/app.js"></script>
+  </head>
+  <body>
+    <div id="main-layout" class="mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header">
+      <header class="mdl-layout__header mdl-color--grey-100 mdl-color-text--grey-600 is-casting-shadow">
+        <div class="mdl-layout__header-row">
+          <span class="mdl-layout-title"></span>
+          <div class="mdl-layout-spacer"></div>
+          <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" id="header_btn">
+            <i class="material-icons">more_vert</i>
+          </button>
+          <ul id="header-menu-dd" class="mdl-menu mdl-js-menu mdl-js-ripple-effect mdl-menu--bottom-right" for="header_btn">
+            <li class="mdl-menu__item" data-link="contact"><i class="material-icons">people</i>Contact Us</li>
+            <li class="mdl-menu__item" data-link="legal"><i class="material-icons">account_balance</i>Legal information</li>
+          </ul>
+        </div>
+      </header>
+      <div id="main-drawer" class="mdl-layout__drawer mdl-color--blue-grey-900 mdl-color-text--blue-grey-50">
+        <header>
+          <img id="main-avatar" src="assets/images/user.jpg" class="user-avatar">
+          <div class="user-avatar-dropdown">
+            <span id="main-email">User</span>
+            <div class="mdl-layout-spacer"></div>
+          </div>
+        </header>
+        <nav class="mdl-navigation mdl-color--blue-grey-800">
+          <a class="mdl-navigation__link" data-link="home" href="#home"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">home</i>Home</a>
+          <a class="mdl-navigation__link" data-link="learn" href="#learn"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">class</i>Learn</a>
+          <a class="mdl-navigation__link" data-link="quiz" href="#quiz"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">rate_review</i>Quiz</a>
+          <div class="mdl-layout-spacer"></div>
+          <a class="mdl-navigation__link" data-link="about" href="#about"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">help_outline</i>About</a>
+        </nav>
+      </div>
+      <main class="mdl-layout__content mdl-color--grey-100">
+        <div class="mdl-grid">
+        </div>
+      </main>
+      <footer class="mdl-mini-footer mdl-color--blue-grey-900 mdl-color-text--blue-grey-50">
+        <div class="mdl-mini-footer--left-section">Designed by Zac Yu</div>
+        <div class="mdl-mini-footer--right-section">Copyright © p17n00bz</div>
+      </footer>
+    </div>
+  </body>
+</html>
