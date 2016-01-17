@@ -56,6 +56,27 @@
     $('.mdl-grid').empty();
     $('.mdl-grid').append(dom);
   }
+  function createPersonAboutCard(name, options) {
+    var obj = $('<div class="person-card category-card mdl-cell mdl-cell--6-col mdl-cell--8-col-tablet mdl-card mdl-shadow--2dp"><div class="mdl-card__title mdl-card--expand"><h2 class="mdl-card__title-text">' + escapeHTML(name) + '</h2></div><div class="mdl-card__supporting-text">' + escapeHTML(options.intro ? options.inro: 'Pleae fill in the intro.') + '</div><div class="mdl-card__actions mdl-card--border"><button class="github-btn mdl-button mdl-js-button mdl-button--icon"><span class="icon-github"></span></button><button class="linkedin-btn mdl-button mdl-js-button mdl-button--icon"><span class="icon-linkedin"></span></button></div></div>');
+    if (options.github) {
+      obj.find('.github-btn').click(function() {
+        window.open('https://github.com/' + options.github);
+      });
+    } else {
+      obj.find('.github-btn').hide();
+    }
+    if (options.linkedin) {
+      obj.find('.linkedin-btn').click(function() {
+        window.open('https://www.linkedin.com/in/' + options.linkedin);
+      });
+    } else {
+      obj.find('.linkedin-btn').hide();
+    }
+    if (options.background) {
+      obj.find('.mdl-card__title').css('background-image', 'url(' +  options.background + ')');
+    }
+    return obj;
+  }
   var module_script = {
     home: function() {
       swal.close();
@@ -83,16 +104,43 @@
       });
     },
     about: function() {
-      var Richard=$('<div class="people category-card mdl-cell mdl-cell--6-col mdl-cell--8-col-tablet mdl-card mdl-shadow--2dp"><div class="mdl-card__title mdl-card--expand"><h2 class="mdl-card__title-text">Richard Fulop</h2></div><div class="mdl-card__supporting-text"> Fill this in Richard.</div><div class="mdl-card__actions mdl-card--border"> <button class="mdl-button mdl-js-button mdl-button--icon"> <a href="https://github.com/richiebful" target="_blank" ><span class="icon-github"></span></a> </button><button class="mdl-button mdl-js-button mdl-button--icon"> <a href="https://www.linkedin.com/in/richard-fulop-573301a1" target="_blank" ><span class="icon-linkedin"></span> </button></div></div>')
-      $('.mdl-grid').append(Richard)
-      var Tianke=$('<div class="people category-card mdl-cell mdl-cell--6-col mdl-cell--8-col-tablet mdl-card mdl-shadow--2dp"><div class="mdl-card__title mdl-card--expand"><h2 class="mdl-card__title-text">Tianke Li</h2></div><div class="mdl-card__supporting-text"> Fill this in Tianke.</div><div class="mdl-card__actions mdl-card--border"> <button class="mdl-button mdl-js-button mdl-button--icon"> <a href="https://github.com/tkl96" target="_blank" ><span class="icon-github"></a></span>')
-      $('.mdl-grid').append(Tianke)
-      var Joe=$('<div class="people category-card mdl-cell mdl-cell--6-col mdl-cell--8-col-tablet mdl-card mdl-shadow--2dp"><div class="mdl-card__title mdl-card--expand"><h2 class="mdl-card__title-text">Joseph Rogers</h2></div><div class="mdl-card__supporting-text"> Fill this in Joe.</div><div class="mdl-card__actions mdl-card--border"> <button class="mdl-button mdl-js-button mdl-button--icon"> <a href="https://github.com/JosephDRogers23" target="_blank" ><span class="icon-github"></span></a> </button><button class="mdl-button mdl-js-button mdl-button--icon"> <a href="https://www.linkedin.com/in/joseph-rogers-6b327a103" target="_blank" ><span class="icon-linkedin"></span> </button></div></div>')
-      $('.mdl-grid').append(Joe)
-      var Alex=$('<div class="people category-card mdl-cell mdl-cell--6-col mdl-cell--8-col-tablet mdl-card mdl-shadow--2dp"><div class="mdl-card__title" style="background-image:url(/assets/images/Alex.jpg)"><h2 class="mdl-card__title-text" >Alexander Rowden</h2></div><div class="mdl-card__supporting-text"> Fill this in Alex.</div><div class="mdl-card__actions mdl-card--border"> <button class="mdl-button mdl-js-button mdl-button--icon"> <a href="https://github.com/Alex-Rowden" target="_blank" ><span class="icon-github"></span></a> </button><button class="mdl-button mdl-js-button mdl-button--icon"> <a href="https://www.linkedin.com/in/alexander-rowden-60262bb1" target="_blank" ><span class="icon-linkedin"></span> </button></div></div>')
-      $('.mdl-grid').append(Alex)
-      var Zac=$('<div class="people category-card mdl-cell mdl-cell--6-col mdl-cell--8-col-tablet mdl-card mdl-shadow--2dp"><div class="mdl-card__title mdl-card--expand"><h2 class="mdl-card__title-text">Zac Yu</h2></div><div class="mdl-card__supporting-text"> Fill this in Zac.</div><div class="mdl-card__actions mdl-card--border"> <button class="mdl-button mdl-js-button mdl-button--icon"><a href="https://github.com/zacyu" target="_blank" > <span class="icon-github"></a></span> </button><button class="mdl-button mdl-js-button mdl-button--icon"> <span class="icon-linkedin"></span> </button></div></div>')
-      $('.mdl-grid').append(Zac)
+      var Richard = createPersonAboutCard('Richard Fulop', {
+        //intro: ,
+        //background: ,
+        github: 'richiebful',
+        linkedin: 'richard-fulop-573301a1',
+      });
+      $('.mdl-grid').append(Richard);
+      var Tianke = createPersonAboutCard('Tianke Li', {
+        //intro: ,
+        //background: ,
+        github: 'tkl96',
+        //linkedin: ,
+      });
+      $('.mdl-grid').append(Tianke);
+      var Joe = createPersonAboutCard('Joseph Rogers', {
+        //intro: ,
+        //background: ,
+        github: 'JosephDRogers23',
+        linkedin: 'joseph-rogers-6b327a103',
+      });
+      //$('<div class="people category-card mdl-cell mdl-cell--6-col mdl-cell--8-col-tablet mdl-card mdl-shadow--2dp"><div class="mdl-card__title mdl-card--expand"><h2 class="mdl-card__title-text">Joseph Rogers</h2></div><div class="mdl-card__supporting-text"> Fill this in Joe.</div><div class="mdl-card__actions mdl-card--border"> <button class="mdl-button mdl-js-button mdl-button--icon"> <a href="https://github.com/JosephDRogers23" target="_blank" ><span class="icon-github"></span></a> </button><button class="mdl-button mdl-js-button mdl-button--icon"> <a href="https://www.linkedin.com/in/joseph-rogers-6b327a103" target="_blank" ><span class="icon-linkedin"></span> </button></div></div>');
+      $('.mdl-grid').append(Joe);
+      var Alex = createPersonAboutCard('Alexander Rowden', {
+        //intro: ,
+        background: 'assets/images/Alex.jpg',
+        github: 'Alex-Rowden',
+        linkedin: 'alexander-rowden-60262bb1',
+      });
+      $('.mdl-grid').append(Alex);
+      var Zac= createPersonAboutCard('Zac Yu', {
+        //intro: ,
+        //background: ,
+        github: 'zacyu',
+        linkedin: 'zacyu',
+      });
+      //$('<div class="people category-card mdl-cell mdl-cell--6-col mdl-cell--8-col-tablet mdl-card mdl-shadow--2dp"><div class="mdl-card__title mdl-card--expand"><h2 class="mdl-card__title-text">Zac Yu</h2></div><div class="mdl-card__supporting-text"> Fill this in Zac.</div><div class="mdl-card__actions mdl-card--border"> <button class="mdl-button mdl-js-button mdl-button--icon"><a href="https://github.com/zacyu" target="_blank" > <span class="icon-github"></a></span> </button><button class="mdl-button mdl-js-button mdl-button--icon"> <span class="icon-linkedin"></span> </button></div></div>');
+      $('.mdl-grid').append(Zac);
     }
   };
   var init = function() {

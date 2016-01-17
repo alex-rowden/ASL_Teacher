@@ -124,6 +124,7 @@ li i.material-icons {
     height: 176px;
     color: #FFF;
     background-size: cover;
+    background-position: center;
 }
 
 .category-card > .mdl-card__menu {
@@ -166,4 +167,8 @@ li i.material-icons {
 
 header .mdl-layout-title {
   cursor: pointer;
+}
+
+.category-card.person-card > .mdl-card__title {
+    height: 300px;
 }
