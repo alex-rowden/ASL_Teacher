@@ -25,7 +25,7 @@
     return $('<div/>').text(text).html();
   }
   function setUpLessonPage(array) {
-    var dom = $('<div class="pick-card mdl-cell mdl-cell--2-col mdl-cell--4-col-phone mdl-card mdl-shadow--2dp"><div class="mdl-card__title"><h2 class="mdl-card__title-text">Pick A Lesson</h2></div><div class="lesson-selector"><div class="left"></div><div class="right"></div></div></div><div class="display-card mdl-cell mdl-cell--10-col mdl-cell--8-col-tablet mdl-card mdl-shadow--2dp"><div class="mdl-card__title"><h2 class="mdl-card__title-text">Demo</h2></div><div class="demo-container mdl-card__supporting-text">Pick a lesson in the left to begin.</div></div>'),
+    var dom = $('<div class="pick-card mdl-cell mdl-cell--2-col mdl-cell--4-col-phone mdl-card mdl-shadow--2dp"><div class="mdl-card__title"><h2 class="mdl-card__title-text">Pick A Lesson</h2></div><div class="lesson-selector"><div class="left"></div><div class="right"></div></div></div><div class="display-card mdl-cell mdl-cell--10-col mdl-cell--8-col-tablet mdl-card mdl-shadow--2dp"><div class="mdl-card__title"><h2 class="mdl-card__title-text">Demo</h2></div><div id="display"></div><div class="demo-container mdl-card__supporting-text">Pick a lesson in the left to begin.</div></div>'),
       mid = parseInt(array.length / 2),
       left = array.slice(0, mid),
       right = array.slice(mid),
@@ -38,9 +38,9 @@
       rightDiv.append($('<button class="mdl-button mdl-js-button mdl-js-ripple-effect">' + right[ele] + '</button>'))
     }
     dom.find('.lesson-selector .mdl-button').click(function(e) {
-      dom.find('.lesson-selector .mdl-button').removeClass('active');
-      $(e.target).addClass('active');
-      var lessonName = $(e.target).text();
+      dom.find('.lesson-selector button').removeClass('active');
+      $(e.target).closest('button').addClass('active');
+      var lessonName = $(e.target).closest('button').text();
       var demo = $('<img></img>').attr('alt', 'Demo: ' + lessonName)
         .attr('src', 'assets/demos/' + lessonName + '.jpg');
       dom.find('.demo-container').empty();
@@ -55,6 +55,7 @@
     });
     $('.mdl-grid').empty();
     $('.mdl-grid').append(dom);
+    componentHandler.upgradeElements($('.mdl-grid .mdl-button').toArray());
   }
   function createPersonAboutCard(name, options) {
     var obj = $('<div class="person-card category-card mdl-cell mdl-cell--6-col mdl-cell--8-col-tablet mdl-card mdl-shadow--2dp"><div class="mdl-card__title mdl-card--expand"><h2 class="mdl-card__title-text">' + escapeHTML(name) + '</h2></div><div class="mdl-card__supporting-text">' + escapeHTML(options.intro ? options.intro: 'Pleae fill in the intro.') + '</div><div class="mdl-card__actions mdl-card--border"><button class="github-btn mdl-button mdl-js-button mdl-button--icon"><span class="icon-github"></span></button><button class="linkedin-btn mdl-button mdl-js-button mdl-button--icon"><span class="icon-linkedin"></span></button></div></div>');
@@ -85,7 +86,49 @@
   }
   var module_script = {
     home: function() {
-      swal.close();
+      var mainDom = $('<div class="category-card mdl-cell mdl-cell--12-col mdl-card mdl-shadow--2dp mdl-grid"></div>'),
+        overallProgDom = $('<div class="mdl-cell mdl-cell--8-col mdl-cell--6-col-desktop"><div class="circle"><strong></strong><br/><span>Overall Progress</span></div></div>'),
+        alphabetProgDom = $('<div class="mdl-cell mdl-cell--8-col mdl-cell--6-col-desktop"><div class="circle"><strong></strong><br/><span>Alphabet Progress</span></div></div>'),
+        numbersProgDom = $('<div class="mdl-cell mdl-cell--8-col mdl-cell--6-col-desktop"><div class="circle"><strong></strong><br/><span>Numbers Progress</span></div></div>'),
+        quizGradeDom = $('<div class="mdl-cell mdl-cell--8-col mdl-cell--6-col-desktop"><div class="circle"><strong></strong><br/><span>Average Grade</span></div></div>');
+      overallProgDom.find('.circle').circleProgress({
+        value: 0.75,
+        size: 200,
+        fill: {
+          gradient: ["red", "orange"]
+        }
+      }).on('circle-animation-progress', function(event, progress, stepValue) {
+        $(this).find('strong').html(parseInt(100 * progress * stepValue) + '<i>%</i>');
+      });
+      alphabetProgDom.find('.circle').circleProgress({
+        value: 0.55,
+        size: 200,
+        fill: {
+          gradient: ["red"]
+        }
+      }).on('circle-animation-progress', function(event, progress, stepValue) {
+        $(this).find('strong').html(parseInt(100 * progress * stepValue) + '<i>%</i>');
+      });
+      numbersProgDom.find('.circle').circleProgress({
+        value: 0.9,
+        size: 200,
+        fill: {
+          gradient: ["orange"]
+        }
+      }).on('circle-animation-progress', function(event, progress, stepValue) {
+        $(this).find('strong').html(parseInt(100 * progress * stepValue) + '<i>%</i>');
+      });
+      quizGradeDom.find('.circle').circleProgress({
+        value: 0.85,
+        size: 200,
+        fill: {
+          gradient: ["green"]
+        }
+      }).on('circle-animation-progress', function(event, progress, stepValue) {
+        $(this).find('strong').html(parseInt(100 * progress * stepValue) + '<i>%</i>');
+      });
+      mainDom.append(overallProgDom).append(alphabetProgDom).append(numbersProgDom).append(quizGradeDom);
+      $('.mdl-grid').append(mainDom);
     },
     learn: function() {
       var learnDom = $('<div class="category-card mdl-cell mdl-cell--6-col mdl-cell--8-col-tablet mdl-card mdl-shadow--2dp"> <div class="mdl-card__title" style="background-image:url(assets/images/alphabet.jpg)"> <h2 class="mdl-card__title-text">Alphabet</h2> </div> <div class="mdl-card__supporting-text"> Start practicing your ABCs! </div> <div class="mdl-card__actions mdl-card--border"> <a id="alphabet-btn" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect"> Let\'s Do It! </a> </div> <div class="mdl-card__menu"> <button data-category="alphabet" class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect"> <i class="material-icons">favorite_border</i> </button> </div> </div> <div class="category-card mdl-cell mdl-cell--6-col mdl-cell--8-col-tablet mdl-card mdl-shadow--2dp"> <div class="mdl-card__title" style="background-image:url(assets/images/numbers.jpg)"> <h2 class="mdl-card__title-text">Numbers</h2> </div> <div class="mdl-card__supporting-text"> Learn to count in ASL! </div> <div class="mdl-card__actions mdl-card--border"> <a id="numbers-btn" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" id="num-btn"> Let\'s Do It! </a> </div> <div class="mdl-card__menu"><button data-category="numbers" class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect"> <i class="material-icons">favorite_border</i> </button> </div> </div>');

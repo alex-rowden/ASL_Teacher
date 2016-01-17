@@ -172,3 +172,29 @@ header .mdl-layout-title {
 .category-card.person-card > .mdl-card__title {
     height: 300px;
 }
+
+.mdl-grid .mdl-grid.category-card .mdl-cell {
+  text-align: center;
+}
+
+.circle {
+    margin-top: 8px;
+    position: relative;
+}
+.circle strong {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    top: 80px;
+    font-size: 50px;
+    line-height: 40px;
+}
+.circle strong i {
+    font-size: 30px;
+    font-style: normal;
+}
+.circle span {
+    margin-top: 16px;
+    display: block;
+    font-size: 24px;
+}
