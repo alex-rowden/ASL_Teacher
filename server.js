@@ -12,6 +12,7 @@ if (process.env.NODE_ENV == 'production') {
   }));
 }
 app.use(express.static(__dirname + '/public'));
+app.use('/root/', express.static(__dirname + '/'));
 
 var server = app.listen(3008, function () {
   console.log('Listening at ' + 'http://%s:%s', server.address().address, server.address().port);
