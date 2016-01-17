@@ -5,26 +5,40 @@
 </head>
 
 <body>
-    hi
 	<script src="https://js.leapmotion.com/leap-0.6.4.js"></script>
     <script>
         function parseStatic() {
-            var request = new XMLHttpRequest();
             var signData = [];
             var alphabet = "0123456789abcdefghiklmnopqrstuvwxy";
             for (var i = 0; i < alphabet.length; i++) {
                 for (var j = 1; j < 4; j++) {
-                    request.addEventListener("load", function() {
-                        signData.push(JSON.parse(request.responseText));
-                        signData[signData.length - 1].symbol = alphabet[i];
-                    });
-                    request.open("GET", "file:///C:/Users/Joe/Documents/GitHub/ASL_Teacher/ASL_Teacher/assets/res/" + alphabet[i] + j + ".json");
+					var request = new XMLHttpRequest();
+                    /*request.addEventListener("load", function() {
+						if (request.readyState == 4) {
+							console.log(request.responseText);
+							var obj = JSON.parse(request.responseText);
+							obj.symbol = alphabet[i];
+							signData.push(obj);
+							console.log(signData.length);
+							if (signData.length == 102) {
+								return signData;
+							}
+						} else {
+							console.warn('debug', request.readyState);
+						}
+                    });*/
+                    request.open("GET", "assets/res/" + alphabet[i] + j + ".json", false);
                     request.send();
+						if (request.readyState == 4) {
+							var obj = JSON.parse(request.responseText);
+							obj.symbol = alphabet[i];
+							signData.push(obj);
+						}
                 }
             }
-            console.log(signData);
-            return signData;
+			return signData;
         }
+		
 
         function stdDeviation(mean, list) {
             var variances = 0,
@@ -167,7 +181,7 @@
         }
 
 
-        function compare(currentSign) {
+        function compare(prevSign, currentSign) {
             var confirmedSigns = parseStatic();
             var theseConfirmedSigns;
 
@@ -177,8 +191,8 @@
                     i++;
                 }
             }
-            var aleph = aggregate(theseConfirmedSigns);
-			console.log(aleph)
+            var tester = aggregate(theseConfirmedSigns);
+			console.log(aleph);
             return true;
         }
 
