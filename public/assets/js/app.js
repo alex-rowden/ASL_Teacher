@@ -134,8 +134,8 @@
       });
       $('.mdl-grid').append(Alex);
       var Zac= createPersonAboutCard('Zac Yu', {
-        //intro: ,
-        //background: ,
+        intro: '',
+        background: 'assets/images/Zac.jpg',
         github: 'zacyu',
         linkedin: 'zacyu',
       });
