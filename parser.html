@@ -1,27 +1,424 @@
 <html>
+
 <head>
 </head>
-<body>
-<script>
-function parseStatic(){
-	var request = new XMLHttpRequest();
-	var signData = [];
-	var alphabet = "0123456789abcdefghiklmnopqrstuvwxy"
-	for (int i = 0; i < alphabet.length; i++){
-		request.addEventListener("load", function() {
-			signData.push(JSON.toObject(request.responseText));
-			signData[signData.length - 1].symbol = alphabet[i];	
-		});
-		request.open("GET", "file:///home/richiebful/workspace/ASL_Teacher/assets/res/"+alphabet[i]+".json");
-		request.send();
-	}
-	return signData;
-}
 
-function compare(correctSign, currentSign){
-	
-	return true|false;
-}
-</script>
+<body>
+    hi
+    <script>
+        function parseStatic() {
+            var request = new XMLHttpRequest();
+            var signData = [];
+            var alphabet = "0123456789abcdefghiklmnopqrstuvwxy";
+            for (var i = 0; i < alphabet.length; i++) {
+                for (var j = 1; j < 4; j++) {
+                    request.addEventListener("load", function() {
+                        signData.push(JSON.parse(request.responseText));
+                        signData[signData.length - 1].symbol = alphabet[i];
+                    });
+                    request.open("GET", "file:///home/richiebful/workspace/ASL_Teacher/assets/res/" + alphabet[i] + j + ".json");
+                    request.overrideMimeType("application/json");
+                    request.send();
+                }
+            }
+            console.log(signData);
+            return signData;
+        }
+
+        function stdDeviation(mean, list) {
+            var variances = 0,
+                distance;
+            for (var i = 0; i < list.length; i++) {
+                distance = list[i] - mean;
+                variances += distance * distances
+            }
+            return Math.sqrt(variances / (list.length - 1))
+        }
+
+        function mean(list) {
+                var sum = 0;
+                for(var i=0; i<list.length; i++)
+                {
+                        sum += list[i];
+                }
+                return sum/list.length;
+        }
+
+        function aggregate(confirmedSigns){
+                var out = {
+                            direction: {
+                                mean: [0, 0, 0],
+                                sd: [0, 0, 0]
+                            },
+                            fingers: [{
+                                mcpPosition: {
+                                    mean: [0, 0, 0],
+                                    sd: [0, 0, 0]
+                                },
+                                dipPosition: {
+                                    mean: [0, 0, 0],
+                                    sd: [0, 0, 0]
+                                },
+                                pipPosition: {
+                                    mean: [0, 0, 0],
+                                    sd: [0, 0, 0]
+                                }
+                            }, {
+                                mcpPosition: {
+                                    mean: [0, 0, 0],
+                                    sd: [0, 0, 0]
+                                },
+                                dipPosition: {
+                                    mean: [0, 0, 0],
+                                    sd: [0, 0, 0]
+                                },
+                                pipPosition: {
+                                    mean: [0, 0, 0],
+                                    sd: [0, 0, 0]
+                                }
+                            }, {
+                                mcpPosition: {
+                                    mean: [0, 0, 0],
+                                    sd: [0, 0, 0]
+                                },
+                                dipPosition: {
+                                    mean: [0, 0, 0],
+                                    sd: [0, 0, 0]
+                                },
+                                pipPosition: {
+                                    mean: [0, 0, 0],
+                                    sd: [0, 0, 0]
+                                }
+                            }, {
+                                mcpPosition: {
+                                    mean: [0, 0, 0],
+                                    sd: [0, 0, 0]
+                                },
+                                dipPosition: {
+                                    mean: [0, 0, 0],
+                                    sd: [0, 0, 0]
+                                },
+                                pipPosition: {
+                                    mean: [0, 0, 0],
+                                    sd: [0, 0, 0]
+                                }
+                            }, {
+                                mcpPosition: {
+                                    mean: [0, 0, 0],
+                                    sd: [0, 0, 0]
+                                },
+                                dipPosition: {
+                                    mean: [0, 0, 0],
+                                    sd: [0, 0, 0]
+                                },
+                                pipPosition: {
+                                    mean: [0, 0, 0],
+                                    sd: [0, 0, 0]
+                                }
+                            }],
+                            palmNormal: {
+                                mean: [0, 0, 0],
+                                sd: [0, 0, 0]
+                            }
+                        };
+                var distance;
+                for (var i = 0; i < 3; i++){
+                        for (var j = 0; j < confirmedSigns; j++){
+                                out.direction.mean[i] += confirmedSigns[j].direction.mean[i];
+                                out.palmNormal.mean[i] += confirmedSigns[j].palmNormal.mean[i];
+                        }        
+                        out.direction.mean[i] /= confirmedSigns.length;
+                        out.palmNormal.mean[i] /= confirmedSigns.length;
+                        for (var j = 0; j < confirmedSigns; j++){
+                                distance = out.direction.mean[i] - confirmedSigns[j].direction.mean[i];
+                                out.direction.sd[i] += distance * distance;
+                                distance = out.palmNormal.mean[i] - confirmedSigns[j].palmNormal.mean[i];
+                                out.palmNormal.sd[i] += distance * distance;
+                        }            
+                        out.direction.sd[i] = Math.sqrt(out.direction.sd[i]/confirmedSigns.length);
+                        out.palmNormal.sd[i] = Math.sqrt(out.palmNormal.sd[i]/confirmedSigns.length);
+                }
+
+                for (i = 0; i < 3; i ++){
+                        for (j = 0; j < confirmedSigns[0].fingers.length; j++){
+                                for (var k = 0; k < confirmedSigns.length; k++){
+                                        out.fingers[j].mcpPosition.mean[i] += confirmedSigns[k].fingers[j].mcpPosition.mean[i];
+                                        out.fingers[j].pipPosition.mean[i] += confirmedSigns[k].fingers[j].pipPosition.mean[i];
+                                        out.fingers[j].dipPosition.mean[i] += confirmedSigns[k].fingers[j].dipPosition.mean[i];
+                                }
+                                out.fingers[j].mcpPosition.mean[i] /= confirmedSigns.length;
+                                out.fingers[j].mcpPosition.mean[i] /= confirmedSigns.length;
+                                out.fingers[j].mcpPosition.mean[i] /= confirmedSigns.length;
+                                for (var k = 0; k < confirmedSigns.length; k++){
+                                        distance = out.fingers[j].mcpPosition.mean[i] - confirmedSigns[k].fingers[j].mcpPosition.mean[i];
+                                        out.fingers[j].mcpPosition.sd[i] = distance * distance;
+                                        distance = out.fingers[j].pipPosition.mean[i] - confirmedSigns[k].fingers[j].pipPosition.mean[i];
+                                        out.fingers[j].pipPosition.sd[i] = distance * distance;
+                                        distance = out.fingers[j].dipPosition.mean[i] - confirmedSigns[k].fingers[j].dipPosition.mean[i];
+                                        out.fingers[j].dipPosition.sd[i] = distance * distance;
+                                }
+                                out.fingers[j].mcpPosition.sd[i] = Math.sqrt(out.fingers[j].mcpPosition.sd[i]/confirmedSigns.length);
+                                out.fingers[j].dipPosition.sd[i] = Math.sqrt(out.fingers[j].dipPosition.sd[i]/confirmedSigns.length);
+                                out.fingers[j].pipPosition.sd[i] = Math.sqrt(out.fingers[j].pipPosition.sd[i]/confirmedSigns.length);
+                        }
+                }             
+        }
+
+
+        function compare(signData, currentSign) {
+            var confirmedSigns = parseStatic();
+            var theseConfirmedSigns;
+
+            for (var i = 0, j = 0; i < 3; j++) {
+                if (confirmedSigns[j].symbol = currentSign) {
+                    theseConfirmedSigns.push(confirmedSigns[j]);
+                    i++;
+                }
+            }
+            aleph = aggregate(theseConfirmedSigns);
+            return true;
+        }
+
+        function record() {
+            var hands = [];
+            // Leap.loop uses browser's requestAnimationFrame
+            var options = {
+                enableGestures: true
+            };
+            var count = 0;
+            Leap.loop(options, function(frame) {
+                if (typeof frame.hands != "undefined" && frame.hands.length == 1) {
+                    var curr_hand = frame.hands[0];
+                    console.log(count, typeof curr_hand);
+                    var handStatus = {
+                        confidence: curr_hand.confidence,
+                        direction: curr_hand.direction,
+                        fingers: [{
+                            mcpPosition: curr_hand.fingers[0].mcpPosition,
+                            pipPosition: curr_hand.fingers[0].pipPosition,
+                            dipPosition: curr_hand.fingers[0].dipPosition
+                        }, {
+                            mcpPosition: curr_hand.fingers[1].mcpPosition,
+                            pipPosition: curr_hand.fingers[1].pipPosition,
+                            dipPosition: curr_hand.fingers[1].dipPosition
+                        }, {
+                            mcpPosition: curr_hand.fingers[2].mcpPosition,
+                            pipPosition: curr_hand.fingers[2].pipPosition,
+                            dipPosition: curr_hand.fingers[2].dipPosition
+                        }, {
+                            mcpPosition: curr_hand.fingers[3].mcpPosition,
+                            pipPosition: curr_hand.fingers[3].pipPosition,
+                            dipPosition: curr_hand.fingers[3].dipPosition
+                        }, {
+                            mcpPosition: curr_hand.fingers[4].mcpPosition,
+                            pipPosition: curr_hand.fingers[4].pipPosition,
+                            dipPosition: curr_hand.fingers[4].dipPosition
+                        }],
+                        palmPosition: curr_hand.palmPosition,
+                        palmNormal: curr_hand.palmNormal,
+                        palmVelocity: curr_hand.palmVelocity
+                    };
+                    console.log(handStatus.fingers[0].pipPosition);
+                    hands.push(handStatus);
+                    if (count++ == 150) {
+                        var out = {
+                            confidence: {
+                                mean: 0,
+                                sd: 0
+                            },
+                            direction: {
+                                mean: [0, 0, 0],
+                                sd: [0, 0, 0]
+                            },
+                            fingers: [{
+                                mcpPosition: {
+                                    mean: [0, 0, 0],
+                                    sd: [0, 0, 0]
+                                },
+                                dipPosition: {
+                                    mean: [0, 0, 0],
+                                    sd: [0, 0, 0]
+                                },
+                                pipPosition: {
+                                    mean: [0, 0, 0],
+                                    sd: [0, 0, 0]
+                                }
+                            }, {
+                                mcpPosition: {
+                                    mean: [0, 0, 0],
+                                    sd: [0, 0, 0]
+                                },
+                                dipPosition: {
+                                    mean: [0, 0, 0],
+                                    sd: [0, 0, 0]
+                                },
+                                pipPosition: {
+                                    mean: [0, 0, 0],
+                                    sd: [0, 0, 0]
+                                }
+                            }, {
+                                mcpPosition: {
+                                    mean: [0, 0, 0],
+                                    sd: [0, 0, 0]
+                                },
+                                dipPosition: {
+                                    mean: [0, 0, 0],
+                                    sd: [0, 0, 0]
+                                },
+                                pipPosition: {
+                                    mean: [0, 0, 0],
+                                    sd: [0, 0, 0]
+                                }
+                            }, {
+                                mcpPosition: {
+                                    mean: [0, 0, 0],
+                                    sd: [0, 0, 0]
+                                },
+                                dipPosition: {
+                                    mean: [0, 0, 0],
+                                    sd: [0, 0, 0]
+                                },
+                                pipPosition: {
+                                    mean: [0, 0, 0],
+                                    sd: [0, 0, 0]
+                                }
+                            }, {
+                                mcpPosition: {
+                                    mean: [0, 0, 0],
+                                    sd: [0, 0, 0]
+                                },
+                                dipPosition: {
+                                    mean: [0, 0, 0],
+                                    sd: [0, 0, 0]
+                                },
+                                pipPosition: {
+                                    mean: [0, 0, 0],
+                                    sd: [0, 0, 0]
+                                }
+                            }],
+                            palmPosition: {
+                                mean: [0, 0, 0],
+                                sd: [0, 0, 0]
+                            },
+                            palmNormal: {
+                                mean: [0, 0, 0],
+                                sd: [0, 0, 0]
+                            },
+                            palmVelocity: {
+                                mean: [0, 0, 0],
+                                sd: [0, 0, 0]
+                            }
+                        };
+                        var distance;
+                        for (i = 0; i < hands.length; i++) {
+                            out.confidence.mean += hands[i].confidence;
+                        }
+                        out.confidence.mean /= hands.length;
+                        for (i = 0; i < hands.length; i++) {
+                            distance = (out.confidence.mean - hands[i].confidence);
+                            out.confidence.sd += distance * distance;
+                        }
+                        out.confidence.sd = Math.sqrt(out.confidence.sd / hands.length);
+                        console.log(out.confidence.sd, out.confidence.mean)
+                        try {
+                            for (i = 0; i < 3; i++) {
+                                for (j = 0; j < hands.length; j++) {
+                                    out.direction.mean[i] += hands[j].direction[i];
+                                }
+                                out.direction.mean[i] /= hands.length;
+                                for (j = 0; j < hands.length; j++) {
+                                    distance = (out.direction.mean[i] - hands[j].direction[i]);
+                                    out.direction.sd[i] += distance * distance;
+                                }
+                                out.direction.sd[i] = Math.sqrt(out.direction.sd[i] / hands.length);
+                            }
+                            console.log(out.confidence.sd, out.confidence.mean)
+                        } catch (err) {
+                            console.log(err.stack)
+                        }
+                        try {
+                            for (i = 0; i < 3; i++) {
+                                for (j = 0; j < (hands[i].fingers).length; j++) {
+                                    for (k = 0; k < hands.length; k++) {
+
+                                        out.fingers[j].mcpPosition.mean[i] += (hands[k].fingers[j].mcpPosition[i] - hands[k].palmPosition[i]);
+                                    }
+                                    out.fingers[j].mcpPosition.mean[i] /= hands.length;
+                                    for (k = 0; k < hands.length; k++) {
+                                        distance = (out.fingers[j].mcpPosition.mean[i] - (hands[k].fingers[j].mcpPosition[i] - hands[k].palmPosition[i]));
+                                        out.fingers[j].mcpPosition.sd[i] += distance;
+                                    }
+                                    out.fingers[j].mcpPosition.sd[i] = Math.sqrt(out.fingers[j].mcpPosition.sd[i] / hands.length);
+
+                                    for (k = 0; k < hands.length; k++) {
+                                        out.fingers[j].pipPosition.mean[i] += (hands[k].fingers[j].pipPosition[i] - hands[k].palmPosition);
+                                    }
+                                    out.fingers[j].pipPosition.mean[i] /= hands.length;
+                                    for (k = 0; k < hands.length; k++) {
+                                        distance = (out.fingers[j].pipPosition.mean[i] - (hands[k].fingers[j].pipPosition[i] - hands[k].palmPosition[i]));
+                                        out.fingers[j].pipPosition.sd[i] += distance * distance;
+                                    }
+                                    out.fingers[j].pipPosition.sd[i] = Math.sqrt(out.fingers[j].pipPosition.sd[i] / hands.length);
+
+                                    for (k = 0; k < hands.length; k++) {
+                                        out.fingers[j].dipPosition.mean[i] += hands[k].fingers[j].dipPosition[i] - hands[k].palmPosition;
+                                    }
+                                    out.fingers[j].dipPosition.mean[i] /= hands.length;
+                                    for (k = 0; k < hands.length; k++) {
+                                        distance = (out.fingers[j].dipPosition.mean[i] - (hands[k].fingers[j].dipPosition[i] - hands[k].palmPosition[i]));
+                                        out.fingers[j].dipPosition.sd[i] += distance * distance;
+                                    }
+                                    out.fingers[j].dipPosition.sd[i] = Math.sqrt(out.fingers[j].dipPosition.sd[i] / hands.length);
+                                }
+                            }
+                        } catch (err) {
+                            console.log(err.stack)
+                        }
+                        try {
+                            for (i = 0; i < 3; i++) {
+                                for (j = 0; j < hands.length; j++) {
+                                    out.palmPosition.mean[i] += hands[j].palmPosition[i];
+                                }
+                                out.palmPosition.mean[i] /= hands.length
+                                for (j = 0; j < hands.length; j++) {
+                                    distance = (out.palmPosition.mean[i] - hands[j].palmPosition[i]);
+                                    out.palmPosition.sd[i] += distance * distance;
+                                }
+                                out.palmPosition.sd[i] = Math.sqrt(out.palmPosition.sd[i] / hands.length);
+
+
+                                for (j = 0; j < hands.length; j++) {
+                                    out.palmVelocity.mean[i] += hands[j].palmVelocity[i];
+                                }
+                                out.palmVelocity.mean[i] /= hands.length;
+                                for (j = 0; j < hands.length; j++) {
+                                    distance = (out.palmVelocity.mean[i] - hands[j].palmVelocity[i]);
+                                    out.palmVelocity.sd[i] += distance * distance;
+                                }
+                                out.palmVelocity.sd[i] = Math.sqrt(out.palmVelocity.sd[i] / hands.length);
+
+
+                                for (j = 0; j < hands.length; j++) {
+                                    out.palmNormal.mean[i] += hands[j].palmNormal[i];
+                                }
+                                out.palmNormal.mean[i] /= hands.length;
+                                for (j = 0; j < hands.length; j++) {
+                                    distance = (out.palmNormal.mean[i] - hands[j].palmNormal[i]);
+                                    out.palmNormal.sd[i] += distance * distance;
+                                }
+                                out.palmNormal.sd[i] = Math.sqrt(out.palmNormal.sd[i] / hands.length);
+                            }
+                        } catch (err) {
+                            console.log(err.stack)
+                        }
+
+                        return out;
+                    }
+
+                }
+            });
+        }
+    </script>
 </body>
+
 </html>
