@@ -1,7 +1,7 @@
 
 <html>
   <head>
-    <script src="//js.leapmotion.com/leap-0.6.4.js"></script>
+    <script src="https://js.leapmotion.com/leap-0.6.4.js"></script>
 
   </head>
 
@@ -14,20 +14,23 @@
     <script type="text/javascript">
     
 	
-	function stdDeviation(mean, values){
-    var sum = 0;
-    var distance = 0;
-    for (i = 0; i < values.length; i++){
-	distance = values - mean;
-	sum += distance * distance;
-    }
-    return sum/values.length;
-}
+	function stdDeviation(values)
+		{
+		var mean_val = mean(values);
+		var sum = 0;
+		var distance = 0;
+		for (var i = 0; i < values.length; i++){
+		distance = values - mean_val;
+		sum += distance * distance;
+		}
+		return sum/values.length;
+		}
 
-function mean(values){
+function mean(values)
+{
     var sum = 0;
-    for (i = 0; i < value.length; i++){
-	sum += distance;
+    for (i = 0; i < values.length; i++){
+		sum += values[i];
     }
     return sum;
 }
@@ -43,7 +46,6 @@ function mean_multi(values)
     }
     
     
-    
     function concatJointPosition(id, position) {
       return id + ": " + position[0] + ", " + position[1] + ", " + position[2] + "<br>";
     }
@@ -51,35 +53,36 @@ function mean_multi(values)
     var output = document.getElementById('output');
     var frameString = "", handString = "", fingerString = "";
     var hand, finger;
-    
     // Leap.loop uses browser's requestAnimationFrame
     var options = { enableGestures: true };
+	   
+	   Leap.loop(options, function(frame) {
+		    document.write("Alex");
+
 	
-	var file = fopen("C:\\test.txt", 3);
-	if(fh!=-1)
-	{
-		
 	
 	
 	var hand_confidence, hand_pinch_strength, hand_grab_strength=[];
 	var finger_dip = [];
 	var finger_pip = [];
 	var finger_mcp = [];
-	for(var i=0; i<5; i++)//creates joint functions on dip, pip, mcp for x,y,z axis
+	for(i=0; i<5; i++)//creates joint functions on dip, pip, mcp for x,y,z axis
 	{
 		finger_dip[i]=[];
 		finger_pip[i]=[];
 		finger_mcp[i]=[];
-	}
-    // Main Leap Loop
-    Leap.loop(options, function(frame) {
+	}	
       //frameString = concatData("frame_id", frame.id);
       //frameString += concatData("num_hands", frame.hands.length);
       //frameString += concatData("num_fingers", frame.fingers.length);
       //frameString += "<br>";
     
+	
+	
       // Showcase some new V2 features
-      for (var i = 0, len = frame.hands.length; i < len; i++) {
+	       for (var i = 0, len = frame.hands.length; i < len; i++) {
+
+	 
         hand = frame.hands[i];
         hand_type=hand.type;
 		//write hand_type once
@@ -92,7 +95,7 @@ function mean_multi(values)
 		//handString += concatData("grab_strength", hand.grabStrength);
 		hand_grab_strength.push(hand.grabStrength);
         //handString += '<br>';
-    
+		document.write(hand.type);
         // Helpers for thumb, pinky, etc.
         //fingerString = concatJointPosition("finger_thumb_dip", hand.thumb.dipPosition);
         for (var j = 0, len2 = hand.fingers.length; j < len2; j++) {
@@ -111,24 +114,25 @@ function mean_multi(values)
           //fingerString += concatJointPosition("finger_pip", finger.pipPosition);
           //fingerString += concatJointPosition("finger_mcp", finger.mcpPosition);
           //fingerString += "<br>";
-        }
-        frameString += handString;
-        frameString += fingerString;
-      }
-    fwrite(file, hand_type);
-	fwrite(file, mean(hand_confidence));
-	fwrite(file, stdDeviation(hand_confidence));
-	fwrite(file, mean(hand_pinch_strength));
-	fwrite(file, stdDeviation(hand_pinch_strength));
-	fwrite(file, mean(hand_grab_strength));
-	fwrite(file, stdDeviation(hand_grab_strength));
+        
+		}
+		}
+		document.write('test');
+       document.write("Goodbye");
+    document.write(hand_type);
+	document.write(mean(hand_confidence));
+	document.write(stdDeviation(hand_confidence));
+	document.write(mean(hand_pinch_strength));
+	document.write(stdDeviation(hand_pinch_strength));
+	document.write(mean(hand_grab_strength));
+	document.write(stdDeviation(hand_grab_strength));
 	
 	for(i=0; i<5; i++)
 	{
 		
 		for(j=0; j<3; j++)
 		{
-			fwrite(file, mean(finger_dip[i][j]));
+			document.write(mean(finger_dip[i][j]));
 			
 		}
 	}
@@ -136,42 +140,44 @@ function mean_multi(values)
 	{
 		for(j=0; j<3; j++)
 		{
-			fwrite(file, stdDeviation(finger_dip[i][j]));
+			document.write(stdDeviation(finger_dip[i][j]));
 		}
 	}
 	for(i = 0; i<5; i++)
 	{
 		for(j=0; j<3; j++)
 		{
-			fwrite(file, mean(finger_pip[i][j]));
+			document.write(mean(finger_pip[i][j]));
 		}
 	}
 	for(i = 0; i<5; i++)
 	{
 		for(j=0; j<3; j++)
 		{
-				fwrite(file, stdDeviation(finger_pip[i][j]));
+				document.write(stdDeviation(finger_pip[i][j]));
 		}
 	}
 	for(i = 0; i<5; i++)
 	{
 		for(j=0; j<3; j++)
 		{
-			fwrite(file, mean(finger_mcp[i][j]));
+			document.write(mean(finger_mcp[i][j]));
 		}
 	}
 	for(i = 0; i<5; i++)
 	{
 		for(j=0; j<3; j++)
 		{
-			fwrite(file, stdDeviation(finger_mcp[i][j]));		
+			document.write(stdDeviation(finger_mcp[i][j]));		
 		}
 	}
 	
-      output.innerHTML = frameString;
-    }
-	}
-    });
+	});
+	
+     
+    
+	
+    
     
     </script>
   </body>
