@@ -115,7 +115,7 @@
         //intro: ,
         //background: ,
         github: 'tkl96',
-        //linkedin: ,
+        linkedin: 'tianke-li-423a4b112',
       });
       $('.mdl-grid').append(Tianke);
       var Joe = createPersonAboutCard('Joseph Rogers', {
