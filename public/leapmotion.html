@@ -1,5 +1,10 @@
 <html>
 <head>
+  <style>
+    .playback-move-hand {
+      display: none;
+    }
+  </style>
   <script src="//cdnjs.cloudflare.com/ajax/libs/three.js/r67/three.js"></script>
   <script src="//js.leapmotion.com/leap-0.6.2.min.js"></script>
   <script src="//js.leapmotion.com/leap-plugins-0.1.6.1.js"></script>
@@ -15,9 +20,9 @@
   visualizeHand = function(controller){
       controller.use('playback', {
           // This is a compressed JSON file of preprecorded frame data
-          recording: 'grab-bones-7-54fps.json.lz',
+          //recording: 'grab-bones-7-54fps.json.lz',
           // How long, in ms, between repeating the recording.
-          timeBetweenLoops: 1000,
+          //timeBetweenLoops: 1000,
           pauseOnHand: true
       }).on('riggedHand.meshAdded', function(handMesh, leapHand){
           handMesh.material.opacity = 1;
@@ -44,8 +49,10 @@
           }*/
       });
       var camera = controller.plugins.riggedHand.camera;
-      camera.position.set(0,20,-25);
+      camera.position.set(0,-30,-30);
       camera.lookAt(new THREE.Vector3(0,3,0));
+      //camera.position.set(0,20,-25);
+      //camera.lookAt(new THREE.Vector3(0,3,0));
   };
   visualizeHand(Leap.loopController);
   </script>

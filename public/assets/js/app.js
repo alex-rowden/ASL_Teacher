@@ -25,7 +25,7 @@
     return $('<div/>').text(text).html();
   }
   function setUpLessonPage(array) {
-    var dom = $('<div class="pick-card mdl-cell mdl-cell--2-col mdl-cell--4-col-phone mdl-card mdl-shadow--2dp"><div class="mdl-card__title"><h2 class="mdl-card__title-text">Pick A Lesson</h2></div><div class="lesson-selector"><div class="left"></div><div class="right"></div></div></div><div class="display-card mdl-cell mdl-cell--10-col mdl-cell--8-col-tablet mdl-card mdl-shadow--2dp"><div class="mdl-card__title"><h2 class="mdl-card__title-text">Demo</h2></div><div id="display"></div><div class="demo-container mdl-card__supporting-text">Pick a lesson in the left to begin.</div></div>'),
+    var dom = $('<div class="pick-card mdl-cell mdl-cell--2-col mdl-cell--4-col-phone mdl-card mdl-shadow--2dp"><div class="mdl-card__title"><h2 class="mdl-card__title-text">Pick A Lesson</h2></div><div class="lesson-selector"><div class="left"></div><div class="right"></div></div></div><div class="display-card mdl-cell mdl-cell--10-col mdl-cell--8-col-tablet mdl-card mdl-shadow--2dp"><div class="mdl-card__title"><h2 class="mdl-card__title-text">Demo</h2></div><iframe id="display" src="leapmotion.html"></iframe><div class="demo-container mdl-card__supporting-text">Pick a lesson in the left to begin.</div></div>'),
       mid = parseInt(array.length / 2),
       left = array.slice(0, mid),
       right = array.slice(mid),

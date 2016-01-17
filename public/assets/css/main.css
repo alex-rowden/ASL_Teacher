@@ -198,3 +198,11 @@ header .mdl-layout-title {
     display: block;
     font-size: 24px;
 }
+
+#display {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 50%;
+    height: calc(50% - 30px);
+}
