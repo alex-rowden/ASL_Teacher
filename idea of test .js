@@ -1,4 +1,4 @@
-z= 2.326 // .99   significance level
+var z= 2.326 // .99   significance level
 	/* 2.576 .995
 	   3.090 .999
 	   3.291 .9995
@@ -10,10 +10,29 @@ z= 2.326 // .99   significance level
 	 0.1	0.05	0.02	0.01	0.005	0.002	0.001
 	 1.6525	1.9719	2.3451	2.6007	2.8385	3.1315	3.3398
 	*/
+function parseStatic() {
+            var request = new XMLHttpRequest();
+            var signData = [];
+            var alphabet = "0123456789abcdefghiklmnopqrstuvwxy";
+            for (var i = 0; i < alphabet.length; i++) {
+                for (var j = 1; j < 4; j++) {
+                    request.addEventListener("load", function() {
+                        signData.push(JSON.parse(request.responseText));
+                        signData[signData.length - 1].symbol = alphabet[i];
+                    });
+                    request.open("GET", "file:///C:/Users/Joe/Documents/GitHub/ASL_Teacher/ASL_Teacher/assets/res/" + alphabet[i] + j + ".json");
+                    request.send();
+                }
+            }
+            console.log(signData);
+            return signData;
+        }
+
+var data = parseStatic();
 
 
 function pooled_variance(sd){// find the variance of the population
-							//note: assume it has same population so the varience are same.
+	var i;						//note: assume it has same population so the varience are same.
 	for (i = 0; i < 3 i++{// pooled varience t-test formular
 	var	sp += sd[i]^2;
 		sp= sp/3;
