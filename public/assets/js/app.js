@@ -148,8 +148,8 @@
       });
       $('.mdl-grid').append(Tianke);
       var Joe = createPersonAboutCard('Joseph Rogers', {
-        //intro: ,
-        //background: ,
+        intro: 'Sophomore at the University of Pittsburgh. I helped with data collection and analysis and assisted with both front-end programming and back-end consulting.',
+        background: 'assets/images/Joe.jpg',
         github: 'JosephDRogers23',
         linkedin: 'joseph-rogers-6b327a103',
       });
@@ -163,7 +163,7 @@
       });
       $('.mdl-grid').append(Alex);
       var Zac = createPersonAboutCard('Zac Yu', {
-        intro: 'Freshman at Pitt, I designed and developed most of the front-end of this project and helped other members with JavaScript debugging.',
+        intro: 'Freshman at Pitt, I designed the web interface and took charge of front-end development of this project. Besides, I also helped other members with debugging JavaScript.',
         background: 'assets/images/Zac.jpg',
         github: 'zacyu',
         linkedin: 'zacyu',
