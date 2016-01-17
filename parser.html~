@@ -1,0 +1,26 @@
+<html>
+<head>
+</head>
+<body>
+<script>
+function parse(){
+	var request = new XMLHttpRequest();
+	var signData = [];
+	var alphabet = "0123456789abcdefghiklmnopqrstuvwxy"
+	for (int i = 0; i < alphabet.length; i++){
+		request.addEventListener("load", function() {
+			signData.push(JSON.toObject(request.responseText));
+			signData[signData.length - 1].symbol = alphabet[i];	
+		});
+		request.open("GET", "file:///home/richiebful/workspace/ASL_Teacher/assets/res/"+alphabet[i]+".json");
+		request.send();
+	}
+	return signData;
+}
+
+function compare(correctSign, currentSign){
+	
+}
+</script>
+</body>
+</html>
