@@ -41,6 +41,7 @@ li i.material-icons {
 }
 #main-drawer {
   border: none;
+  position: fixed;
 }
 /* iOS Safari specific workaround */
 #main-drawer .mdl-menu__container {
@@ -116,4 +117,53 @@ li i.material-icons {
 }
 #main-grid {
   max-width: 1080px;
+}
+
+.category-card > .mdl-card__title {
+    background: #00bcd4;
+    height: 176px;
+    color: #FFF;
+    background-size: cover;
+}
+
+.category-card > .mdl-card__menu {
+    color: #FFF;
+}
+
+.mdl-layout__header-row i {
+  vertical-align: sub;
+}
+
+.lesson-selector {
+    position: relative;
+    width: 100%;
+}
+
+.lesson-selector .left {
+    float: left;
+    width: 50%;
+}
+
+.lesson-selector .right {
+    float: right;
+    width: 50%;
+}
+
+.lesson-selector .mdl-button  {
+    width: 100%;
+    border-radius: 0;
+}
+
+.lesson-selector .mdl-button.active {
+   background-color: rgba(158,158,158,.4);
+ }
+
+.demo-container video, .demo-container img {
+  width: 100%;
+  border-radius: 4px;
+  margin-top: -16px;
+}
+
+header .mdl-layout-title {
+  cursor: pointer;
 }

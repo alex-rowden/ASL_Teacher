@@ -24,13 +24,55 @@
   function escapeHTML(text) {
     return $('<div/>').text(text).html();
   }
+  function setUpLessonPage(array) {
+    var dom = $('<div class="pick-card mdl-cell mdl-cell--2-col mdl-cell--4-col-phone mdl-card mdl-shadow--2dp"><div class="mdl-card__title"><h2 class="mdl-card__title-text">Pick A Lesson</h2></div><div class="lesson-selector"><div class="left"></div><div class="right"></div></div></div><div class="display-card mdl-cell mdl-cell--10-col mdl-cell--8-col-tablet mdl-card mdl-shadow--2dp"><div class="mdl-card__title"><h2 class="mdl-card__title-text">Demo</h2></div><div class="demo-container mdl-card__supporting-text">Pick a lesson in the left to begin.</div></div>'),
+      mid = parseInt(array.length / 2),
+      left = array.slice(0, mid),
+      right = array.slice(mid),
+      leftDiv = dom.find('.left'),
+      rightDiv = dom.find('.right');
+    for (var ele in left) {
+      leftDiv.append($('<button class="mdl-button mdl-js-button mdl-js-ripple-effect">' + left[ele] + '</button>'))
+    }
+    for (var ele in right) {
+      rightDiv.append($('<button class="mdl-button mdl-js-button mdl-js-ripple-effect">' + right[ele] + '</button>'))
+    }
+    dom.find('.lesson-selector .mdl-button').click(function(e) {
+      dom.find('.lesson-selector .mdl-button').removeClass('active');
+      $(e.target).addClass('active');
+      var lessonName = $(e.target).text();
+      var demo = $('<img></img>').attr('alt', 'Demo: ' + lessonName)
+        .attr('src', 'assets/demos/' + lessonName + '.jpg');
+      dom.find('.demo-container').empty();
+      demo.on('error', function() {
+        demo = $('<video></video>').attr('src', 'assets/demos/' + lessonName + '.mp4')
+          .attr('type', 'video/mp4').prop('autoplay', true);
+        dom.find('.demo-container').append(demo);
+      });
+      demo.on('load', function() {
+        dom.find('.demo-container').append(demo);
+      });
+    });
+    $('.mdl-grid').empty();
+    $('.mdl-grid').append(dom);
+  }
   var module_script = {
     home: function() {
       swal.close();
     },
     learn: function() {
-      var learnDom = '<div class="mdl-cell mdl-cell--6-col mdl-card mdl-shadow--2dp"> <div class="mdl-card__title"> <h2 class="mdl-card__title-text">Alphabet</h2> </div> <div class="mdl-card__supporting-text"> Start practicing your ABCs! </div> <div class="mdl-card__actions mdl-card--border"> <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" id="alphabet_btn"> Let\'s Do It! </a> </div> <div class="mdl-card__menu"> <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect"> <i class="material-icons">favorite_border</i> </button> </div> </div> <div class="mdl-cell mdl-cell--6-col mdl-card mdl-shadow--2dp"> <div class="mdl-card__title"> <h2 class="mdl-card__title-text">Numbers</h2> </div> <div class="mdl-card__supporting-text"> Learn to count in ASL! </div> <div class="mdl-card__actions mdl-card--border"> <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" id="num-btn"> Let\'s Do It! </a> </div> <div class="mdl-card__menu"> <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect"> <i class="material-icons">favorite_border</i> </button> </div> </div>';
-      $('.mdl-grid').html(learnDom);
+      var learnDom = $('<div class="category-card mdl-cell mdl-cell--6-col mdl-cell--8-col-tablet mdl-card mdl-shadow--2dp"> <div class="mdl-card__title" style="background-image:url(assets/images/alphabet.jpg)"> <h2 class="mdl-card__title-text">Alphabet</h2> </div> <div class="mdl-card__supporting-text"> Start practicing your ABCs! </div> <div class="mdl-card__actions mdl-card--border"> <a id="alphabet-btn" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect"> Let\'s Do It! </a> </div> <div class="mdl-card__menu"> <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect"> <i class="material-icons">favorite_border</i> </button> </div> </div> <div class="category-card mdl-cell mdl-cell--6-col mdl-cell--8-col-tablet mdl-card mdl-shadow--2dp"> <div class="mdl-card__title" style="background-image:url(assets/images/numbers.jpg)"> <h2 class="mdl-card__title-text">Numbers</h2> </div> <div class="mdl-card__supporting-text"> Learn to count in ASL! </div> <div class="mdl-card__actions mdl-card--border"> <a id="numbers-btn" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" id="num-btn"> Let\'s Do It! </a> </div> <div class="mdl-card__menu"> <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect"> <i class="material-icons">favorite_border</i> </button> </div> </div>');
+      learnDom.find('#alphabet-btn').click(function() {
+        $('header .mdl-layout-title').html('Learn <i class="material-icons">chevron_right</i> Alphabet');
+        setUpLessonPage(['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q',
+          'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']);
+      });
+      learnDom.find('#numbers-btn').click(function() {
+        $('header .mdl-layout-title').html('Learn <i class="material-icons">chevron_right</i> Numbers');
+        setUpLessonPage(['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']);
+      });
+      componentHandler.upgradeElements($('.mdl-grid .mdl-button').toArray());
+      $('.mdl-grid').append(learnDom);
     },
     quiz: function() {
       swal({
@@ -91,6 +133,7 @@
           var hash = CryptoJS.MD5(input.trim().toLowerCase());
           if (localStorage.getItem('user_' + hash)) {
             sessionStorage.setItem('user', localStorage.getItem('user_' + hash));
+            user = JSON.parse(localStorage.getItem('user_' + hash));
           } else {
             user = {
               email: input
@@ -104,6 +147,9 @@
       });
       return;
     }
+    $('header .mdl-layout-title').on('click', function() {
+      setModule();
+    });
     init();
   });
   window.onhashchange = setModule;
