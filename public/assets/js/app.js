@@ -168,12 +168,35 @@
       $('.mdl-grid').append(learnDom);
     },
     quiz: function() {
-      swal({
-        title: 'Under Construction',
-        type: 'info'
-      }, function() {
-        location.hash = 'home'
-      });
+      var quizDom = $('<div class="mdl-cell mdl-cell--12-col mdl-card mdl-shadow--2dp mdl-grid"></div>'),
+      questions = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q',
+        'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
+      function randomProblem() {
+        quizDom.empty();
+        var problem = questions[parseInt(Math.random() * questions.length)];
+        var contentDom = $('<div class="mdl-card__supporting-text"><iframe id="display" class="hint" src="leapmotion.html"></iframe><h3>Try to do the sign for "' + problem + '"</h3><div class="buttons"><button class="try-another-btn mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised mdl-button--accent">Try Another One</button><button class="hint-btn mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised mdl-button--colored">Show Answer</button></div><div class="hint-container"></div></div>');
+        componentHandler.upgradeElements(contentDom.find('.mdl-button').toArray());
+        contentDom.find('.try-another-btn').click(function() {
+          randomProblem();
+        });
+        contentDom.find('.hint-btn').click(function(e) {
+          e.target.parentNode.remove(e.target);
+          var demo = $('<img></img>').attr('alt', 'Demo: ' + problem)
+            .attr('src', 'assets/demos/' + problem + '.jpg');
+          contentDom.find('.demo-container').empty();
+          demo.on('error', function() {
+            demo = $('<video></video>').attr('src', 'assets/demos/' + problem + '.mp4')
+              .attr('type', 'video/mp4').prop('autoplay', true);
+            contentDom.find('.hint-container').append(demo);
+          });
+          demo.on('load', function() {
+            contentDom.find('.hint-container').append(demo);
+          });
+        });
+        quizDom.append(contentDom);
+      }
+      randomProblem();
+      $('.mdl-grid').append(quizDom);
     },
     about: function() {
       var Richard = createPersonAboutCard('Richard Fulop', {

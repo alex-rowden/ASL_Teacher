@@ -165,6 +165,16 @@ li i.material-icons {
   margin-top: -16px;
 }
 
+.hint-container {
+  margin-top: 16px;
+}
+
+.hint-container video, .hint-container img {
+  width: 100%;
+  border-radius: 4px;
+  margin-top: -16px;
+}
+
 header .mdl-layout-title {
   cursor: pointer;
 }
@@ -205,4 +215,17 @@ header .mdl-layout-title {
     top: 0;
     width: 50%;
     height: calc(50% - 30px);
+}
+
+#display.hint {
+  height: 200px;
+}
+
+.buttons {
+  width: 100%;
+  overflow: visible!important;
+}
+
+.buttons .mdl-button {
+  margin-right: 16px;
 }
