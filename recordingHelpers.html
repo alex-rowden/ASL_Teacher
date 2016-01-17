@@ -2,7 +2,7 @@
 <html>
   <head>
     <script src="https://js.leapmotion.com/leap-0.6.4.js"></script>
-	<script src="./public/assets/js/savefile.js"></script>
+  <script src="./public/assets/js/savefile.js"></script>
   </head>
 
   <body>
@@ -13,80 +13,157 @@
     
     <script type="text/javascript">
     
-	
+  
 function stdDeviation()
-	{
-		var mean_val = mean(values);
-		var sum = 0;
-		var distance = 0;
-		for (var i = 0; i < values.length; i++){
-		distance = values - mean_val;
-		sum += distance * distance;
-		}
-		return Math.sqrt(sum/values.length);
-		}
+  {
+    var mean_val = mean(values);
+    var sum = 0;
+    var distance = 0;
+    for (var i = 0; i < values.length; i++){
+    distance = values - mean_val;
+    sum += distance * distance;
+    }
+    return Math.sqrt(sum/values.length);
+    }
 
 function mean(hands)
 {
     var sum = 0;
     for (i = 0; i < values.length; i++){
-		sum += values[i];
+    sum += values[i];
     }
     return (sum / values.length);
 }
 
 
 
-	
+  
     var hands = [];
     // Leap.loop uses browser's requestAnimationFrame
     var options = { enableGestures: true };
-	   var count = 0;
-	   Leap.loop(options, function(frame) {
-			if(typeof frame.hands != "undefined" && frame.hands.length == 1)
-			{
-			var curr_hand = frame.hands[0];
-			console.log(count, typeof curr_hand);
-			var handStatus = {
-				confidence: curr_hand.confidence,
-				direction: curr_hand.direction,
-				fingers: {
-					mcpPosition: curr_hand.fingers.mcpPosition, pipPosition: curr_hand.fingers.pipPosition, dipPosition: curr_hand.dipPosition
-				}, 
-				palmPosition: curr_hand.palmPosition,
-				palmNormal: curr_hand.palmNormal,
-				palmVelocity: curr_hand.palmVelocity
-			};
-			hands.push(handStatus);
-			if(count++ == 10)
-			{
-				var out = {};
-				for (int i = 0; i < hands.length; i++){
-					out.confidence.mean += hands[i].confidence;
-				}
-				out.confidence.mean /= hands.length;
-				for (i = 0; i < hands.length; i++){
-					out.confidence.sd += (out.confidence.mean - hands[i].confidence);
-				}
-				out.confidence.sd = Math.sqrt(out.confidence.sd/hands.length)
-				
-				
-				try {
-					console.log(JSON.stringify(hands));
-				} catch(err) {
-					console.log(err);
-					return;
-				}
-				startDownload(output, 'test.json');
-				return;
-			}
-				
-			}
-		});
-	
+     var count = 0;
+     Leap.loop(options, function(frame) {
+      if(typeof frame.hands != "undefined" && frame.hands.length == 1)
+      {
+      var curr_hand = frame.hands[0];
+      console.log(count, typeof curr_hand);
+      var handStatus = {
+        confidence: curr_hand.confidence,
+        direction: curr_hand.direction,
+        fingers: {
+          mcpPosition: curr_hand.fingers.mcpPosition, pipPosition: curr_hand.fingers.pipPosition, dipPosition: curr_hand.dipPosition
+        }, 
+        palmPosition: curr_hand.palmPosition,
+        palmNormal: curr_hand.palmNormal,
+        palmVelocity: curr_hand.palmVelocity
+      };
+      hands.push(handStatus);
+      if(count++ == 10)
+      {
+        var out = {};
+        
+
+        for (int i = 0; i < hands.length; i++){
+          out.confidence.mean += hands[i].confidence;
+        }
+        out.confidence.mean /= hands.length;
+        for (i = 0; i < hands.length; i++){
+          out.confidence.sd += (out.confidence.mean - hands[i].confidence);
+        }
+        out.confidence.sd = Math.sqrt(out.confidence.sd/hands.length);
+        
+
+
+        for (int i = 0; i < hands.length; i++){
+          out.direction.mean += hands[i].direction;
+        }
+        out.direction.mean /= direction.length;
+        for (i = 0; i < hands.length; i++){
+          out.direction.sd += (out.direction.mean - hands[i].direction);
+        } 
+        out.direction.sd = Math.sqrt(out.direction.sd/hands.length);
+        
+
+
+        for (int i = 0; i < hands.length; i++){
+          out.fingers.mcpPosition.mean += hands[i].fingers.mcpPosition;
+        }
+        out.fingers.mcpPosition.mean /= hands.length;
+        for (i = 0; i < hands.length; i++){
+          out.fingers.mcpPosition.sd += (out.fingers.mcpPosition.mean - hands[i].fingers.mcpPosition);
+        }
+        out.fingers.mcpPosition.sd = Math.sqrt(out.fingers.mcpPosition.sd/hands.length);
+        
+
+
+        for (int i = 0; i < hands.length; i++){
+          out.fingers.pipPosition.mean += hands[i].fingers.pipPosition;
+        }
+        out.fingers.pipPosition.mean /= hands.length;
+        for (i = 0; i < hands.length; i++){
+          out.fingers.pipPosition.sd += (out.fingers.pipPosition.mean - hands[i].fingers.pipPosition);
+        }
+        out.fingers.pipPosition.sd = Math.sqrt(out.fingers.pipPosition.sd/hands.length);
+        
+       
+
+        for (int i = 0; i < hands.length; i++){
+          out.fingers.dipPosition.mean += hands[i].fingers.dipPosition;
+        }
+        out.fingers.dipPosition.mean /= hands.length;
+        for (i = 0; i < hands.length; i++){
+          out.fingers.dipPosition.sd += (out.fingers.dipPosition.mean - hands[i].fingers.dipPosition);
+        }
+        out.fingers.dipPosition.sd = Math.sqrt(out.fingers.dipPosition.sd/hands.length);
+        
+        
+       for (int i = 0; i < hands.length; i++){
+          out.palmPosition.mean += hands[i].palmPosition;
+        }
+        out.palmPosition.mean /= palmPosition.length;
+        for (i = 0; i < hands.length; i++){
+          out.palmPosition.sd += (out.palmPosition.mean - hands[i].palmPosition);
+        } 
+        out.palmPosition.sd = Math.sqrt(out.palmPosition.sd/hands.length);
+         
+
+         for (int i = 0; i < hands.length; i++){
+          out.palmVelocity.mean += hands[i].palmVelocity;
+        }
+        out.palmVelocity.mean /= palmVelocity.length;
+        for (i = 0; i < hands.length; i++){
+          out.palmVelocity.sd += (out.palmVelocity.mean - hands[i].palmVelocity);
+        } 
+        out.palmVelocity.sd = Math.sqrt(out.palmVelocity.sd/hands.length);
+       
+
+         for (int i = 0; i < hands.length; i++){
+          out.palmNormal.mean += hands[i].palmNormal;
+        }
+        out.palmNormal.mean /= direction.length;
+        for (i = 0; i < hands.length; i++){
+          out.palmNormal.sd += (out.palmNormal.mean - hands[i].palmNormal);
+        } 
+        out.palmNormal.sd = Math.sqrt(out.palmNormal.sd/hands.length);
+        
+
+
+        try {
+          console.log(JSON.stringify(hands));
+        } catch(err) {
+          console.log(err);
+          return;
+        }
+        startDownload(output, 'test.json');
+        return;
+      }
+        
+      }
+    });
+  
      
     
-	
+  
     
     
     </script>
