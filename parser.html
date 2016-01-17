@@ -1,10 +1,12 @@
 <html>
 
 <head>
+<script src="https://js.leapmotion.com/leap-0.6.4.js"></script>
 </head>
 
 <body>
     hi
+	<script src="https://js.leapmotion.com/leap-0.6.4.js"></script>
     <script>
         function parseStatic() {
             var request = new XMLHttpRequest();
@@ -16,8 +18,7 @@
                         signData.push(JSON.parse(request.responseText));
                         signData[signData.length - 1].symbol = alphabet[i];
                     });
-                    request.open("GET", "file:///home/richiebful/workspace/ASL_Teacher/assets/res/" + alphabet[i] + j + ".json");
-                    request.overrideMimeType("application/json");
+                    request.open("GET", "file:///C:/Users/Joe/Documents/GitHub/ASL_Teacher/ASL_Teacher/assets/res/" + alphabet[i] + j + ".json");
                     request.send();
                 }
             }
@@ -138,9 +139,9 @@
                         out.direction.sd[i] = Math.sqrt(out.direction.sd[i]/confirmedSigns.length);
                         out.palmNormal.sd[i] = Math.sqrt(out.palmNormal.sd[i]/confirmedSigns.length);
                 }
-
+				console.log(confirmedSigns)
                 for (i = 0; i < 3; i ++){
-                        for (j = 0; j < confirmedSigns[0].fingers.length; j++){
+                        for (j = 0; j < confirmedSigns[0].fingers[0].length; j++){
                                 for (var k = 0; k < confirmedSigns.length; k++){
                                         out.fingers[j].mcpPosition.mean[i] += confirmedSigns[k].fingers[j].mcpPosition.mean[i];
                                         out.fingers[j].pipPosition.mean[i] += confirmedSigns[k].fingers[j].pipPosition.mean[i];
@@ -161,21 +162,23 @@
                                 out.fingers[j].dipPosition.sd[i] = Math.sqrt(out.fingers[j].dipPosition.sd[i]/confirmedSigns.length);
                                 out.fingers[j].pipPosition.sd[i] = Math.sqrt(out.fingers[j].pipPosition.sd[i]/confirmedSigns.length);
                         }
-                }             
+                }        
+				return out;
         }
 
 
-        function compare(signData, currentSign) {
+        function compare(currentSign) {
             var confirmedSigns = parseStatic();
             var theseConfirmedSigns;
 
             for (var i = 0, j = 0; i < 3; j++) {
-                if (confirmedSigns[j].symbol = currentSign) {
+                if (confirmedSigns[j].symbol === currentSign) {
                     theseConfirmedSigns.push(confirmedSigns[j]);
                     i++;
                 }
             }
-            aleph = aggregate(theseConfirmedSigns);
+            var aleph = aggregate(theseConfirmedSigns);
+			console.log(aleph)
             return true;
         }
 
@@ -242,8 +245,8 @@
                                 pipPosition: {
                                     mean: [0, 0, 0],
                                     sd: [0, 0, 0]
-                                }
-                            }, {
+                                }},
+                                {
                                 mcpPosition: {
                                     mean: [0, 0, 0],
                                     sd: [0, 0, 0]
@@ -255,8 +258,8 @@
                                 pipPosition: {
                                     mean: [0, 0, 0],
                                     sd: [0, 0, 0]
-                                }
-                            }, {
+                                }},
+								{
                                 mcpPosition: {
                                     mean: [0, 0, 0],
                                     sd: [0, 0, 0]
@@ -411,7 +414,7 @@
                         } catch (err) {
                             console.log(err.stack)
                         }
-
+						console.log(out)
                         return out;
                     }
 
