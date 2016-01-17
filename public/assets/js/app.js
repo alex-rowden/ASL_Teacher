@@ -77,12 +77,18 @@
     }
     return obj;
   }
+  function saveUserConfig() {
+    if (!user.email) return false;
+    var hash = CryptoJS.MD5(user.email.trim().toLowerCase());
+    sessionStorage.setItem('user', JSON.stringify(user));
+    localStorage.setItem('user_' + hash, sessionStorage.getItem('user'));
+  }
   var module_script = {
     home: function() {
       swal.close();
     },
     learn: function() {
-      var learnDom = $('<div class="category-card mdl-cell mdl-cell--6-col mdl-cell--8-col-tablet mdl-card mdl-shadow--2dp"> <div class="mdl-card__title" style="background-image:url(assets/images/alphabet.jpg)"> <h2 class="mdl-card__title-text">Alphabet</h2> </div> <div class="mdl-card__supporting-text"> Start practicing your ABCs! </div> <div class="mdl-card__actions mdl-card--border"> <a id="alphabet-btn" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect"> Let\'s Do It! </a> </div> <div class="mdl-card__menu"> <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect"> <i class="material-icons">favorite_border</i> </button> </div> </div> <div class="category-card mdl-cell mdl-cell--6-col mdl-cell--8-col-tablet mdl-card mdl-shadow--2dp"> <div class="mdl-card__title" style="background-image:url(assets/images/numbers.jpg)"> <h2 class="mdl-card__title-text">Numbers</h2> </div> <div class="mdl-card__supporting-text"> Learn to count in ASL! </div> <div class="mdl-card__actions mdl-card--border"> <a id="numbers-btn" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" id="num-btn"> Let\'s Do It! </a> </div> <div class="mdl-card__menu"> <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect"> <i class="material-icons">favorite_border</i> </button> </div> </div>');
+      var learnDom = $('<div class="category-card mdl-cell mdl-cell--6-col mdl-cell--8-col-tablet mdl-card mdl-shadow--2dp"> <div class="mdl-card__title" style="background-image:url(assets/images/alphabet.jpg)"> <h2 class="mdl-card__title-text">Alphabet</h2> </div> <div class="mdl-card__supporting-text"> Start practicing your ABCs! </div> <div class="mdl-card__actions mdl-card--border"> <a id="alphabet-btn" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect"> Let\'s Do It! </a> </div> <div class="mdl-card__menu"> <button data-category="alphabet" class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect"> <i class="material-icons">favorite_border</i> </button> </div> </div> <div class="category-card mdl-cell mdl-cell--6-col mdl-cell--8-col-tablet mdl-card mdl-shadow--2dp"> <div class="mdl-card__title" style="background-image:url(assets/images/numbers.jpg)"> <h2 class="mdl-card__title-text">Numbers</h2> </div> <div class="mdl-card__supporting-text"> Learn to count in ASL! </div> <div class="mdl-card__actions mdl-card--border"> <a id="numbers-btn" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" id="num-btn"> Let\'s Do It! </a> </div> <div class="mdl-card__menu"><button data-category="numbers" class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect"> <i class="material-icons">favorite_border</i> </button> </div> </div>');
       learnDom.find('#alphabet-btn').click(function() {
         $('header .mdl-layout-title').html('Learn <i class="material-icons">chevron_right</i> Alphabet');
         setUpLessonPage(['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q',
@@ -91,6 +97,29 @@
       learnDom.find('#numbers-btn').click(function() {
         $('header .mdl-layout-title').html('Learn <i class="material-icons">chevron_right</i> Numbers');
         setUpLessonPage(['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']);
+      });
+      if (typeof user.favorites == 'object') {
+        $.each(user.favorites, function(key, value) {
+          if (value === true) {
+            learnDom.find('.mdl-button[data-category="' + key + '"]').find('.material-icons').text('favorite');
+          }
+        });
+      }
+      learnDom.find('.mdl-card__menu .mdl-button').click(function(e) {
+        var flag = false,
+          btn = $(e.target).closest('button');
+        if (btn.find('i').text() == 'favorite_border') {
+          btn.find('i').text('favorite');
+          flag = true;
+        } else {
+          btn.find('i').text('favorite_border');
+        }
+        if (!user.favorites) {
+          user.favorites = {};
+        } else {
+          user.favorites[btn.data('category')] = flag;
+        }
+        saveUserConfig();
       });
       componentHandler.upgradeElements($('.mdl-grid .mdl-button').toArray());
       $('.mdl-grid').append(learnDom);
@@ -134,7 +163,7 @@
       });
       $('.mdl-grid').append(Alex);
       var Zac = createPersonAboutCard('Zac Yu', {
-        intro: 'Freshman at Pitt, I designed and developed most of the front-end of this project.',
+        intro: 'Freshman at Pitt, I designed and developed most of the front-end of this project and helped other members with JavaScript debugging.',
         background: 'assets/images/Zac.jpg',
         github: 'zacyu',
         linkedin: 'zacyu',
