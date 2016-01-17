@@ -173,6 +173,9 @@
     }
   };
   var init = function() {
+    $('header .mdl-layout-title').on('click', function() {
+      setModule();
+    });
     $('#main-email').text(user.email);
     $('#main-avatar').attr('src', 'https://www.gravatar.com/avatar/' +
       CryptoJS.MD5(user.email.trim().toLowerCase()) + '?s=128&d=mm');
@@ -228,9 +231,6 @@
       });
       return;
     }
-    $('header .mdl-layout-title').on('click', function() {
-      setModule();
-    });
     init();
   });
   window.onhashchange = setModule;
