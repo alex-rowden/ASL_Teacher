@@ -133,8 +133,8 @@
         linkedin: 'alexander-rowden-60262bb1',
       });
       $('.mdl-grid').append(Alex);
-      var Zac= createPersonAboutCard('Zac Yu', {
-        intro: '',
+      var Zac = createPersonAboutCard('Zac Yu', {
+        intro: 'Freshman at Pitt, I designed and developed most of the front-end of this project.',
         background: 'assets/images/Zac.jpg',
         github: 'zacyu',
         linkedin: 'zacyu',
