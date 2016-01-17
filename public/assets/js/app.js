@@ -1,4 +1,4 @@
-//(function() {
+  //(function() {
   var user;
   try {
     user = JSON.parse(sessionStorage.getItem('user'));
@@ -106,7 +106,7 @@
     about: function() {
       var Richard = createPersonAboutCard('Richard Fulop', {
         //intro: ,
-        //background: ,
+        background: 'assets/images/Richard.jpg' ,
         github: 'richiebful',
         linkedin: 'richard-fulop-573301a1',
       });
