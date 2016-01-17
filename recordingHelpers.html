@@ -38,7 +38,7 @@ function mean(hands)
 
 
 	
-    var the_hand = [];
+    var hands = [];
     // Leap.loop uses browser's requestAnimationFrame
     var options = { enableGestures: true };
 	   var count = 0;
@@ -57,12 +57,22 @@ function mean(hands)
 				palmNormal: curr_hand.palmNormal,
 				palmVelocity: curr_hand.palmVelocity
 			};
-			the_hand.push(handStatus);
+			hands.push(handStatus);
 			if(count++ == 10)
 			{
-			//	console.log(mean(the_hand.confidence));
+				var out = {};
+				for (int i = 0; i < hands.length; i++){
+					out.confidence.mean += hands[i].confidence;
+				}
+				out.confidence.mean /= hands.length;
+				for (i = 0; i < hands.length; i++){
+					out.confidence.sd += (out.confidence.mean - hands[i].confidence);
+				}
+				out.confidence.sd = Math.sqrt(out.confidence.sd/hands.length)
+				
+				
 				try {
-					console.log(JSON.stringify(the_hand));
+					console.log(JSON.stringify(hands));
 				} catch(err) {
 					console.log(err);
 					return;
