@@ -1,4 +1,4 @@
-//(function() {
+  //(function() {
   var user;
   try {
     user = JSON.parse(sessionStorage.getItem('user'));
@@ -177,8 +177,8 @@
     },
     about: function() {
       var Richard = createPersonAboutCard('Richard Fulop', {
-        //intro: ,
-        //background: ,
+        intro: 'Freshman at the University of the Burgh. I was there when Pittsburgh was only a fort. But I was older than I am today, back then.',
+        background: 'assets/images/Richard.jpg' ,
         github: 'richiebful',
         linkedin: 'richard-fulop-573301a1',
       });
