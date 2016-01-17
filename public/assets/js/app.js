@@ -141,7 +141,7 @@
       });
       $('.mdl-grid').append(Richard);
       var Tianke = createPersonAboutCard('Tianke Li', {
-        //intro: ,
+        intro: "Freshman at University of Pittsburgh. I designed the data analysis sysmtem and helped with collecting data. Besides, I did lots of research work.",
         background: 'assets/images/TK.jpg',
         github: 'tkl96',
         linkedin: 'tianke-li-423a4b112',
