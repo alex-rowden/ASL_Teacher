@@ -57,7 +57,7 @@
     $('.mdl-grid').append(dom);
   }
   function createPersonAboutCard(name, options) {
-    var obj = $('<div class="person-card category-card mdl-cell mdl-cell--6-col mdl-cell--8-col-tablet mdl-card mdl-shadow--2dp"><div class="mdl-card__title mdl-card--expand"><h2 class="mdl-card__title-text">' + escapeHTML(name) + '</h2></div><div class="mdl-card__supporting-text">' + escapeHTML(options.intro ? options.inro: 'Pleae fill in the intro.') + '</div><div class="mdl-card__actions mdl-card--border"><button class="github-btn mdl-button mdl-js-button mdl-button--icon"><span class="icon-github"></span></button><button class="linkedin-btn mdl-button mdl-js-button mdl-button--icon"><span class="icon-linkedin"></span></button></div></div>');
+    var obj = $('<div class="person-card category-card mdl-cell mdl-cell--6-col mdl-cell--8-col-tablet mdl-card mdl-shadow--2dp"><div class="mdl-card__title mdl-card--expand"><h2 class="mdl-card__title-text">' + escapeHTML(name) + '</h2></div><div class="mdl-card__supporting-text">' + escapeHTML(options.intro ? options.intro: 'Pleae fill in the intro.') + '</div><div class="mdl-card__actions mdl-card--border"><button class="github-btn mdl-button mdl-js-button mdl-button--icon"><span class="icon-github"></span></button><button class="linkedin-btn mdl-button mdl-js-button mdl-button--icon"><span class="icon-linkedin"></span></button></div></div>');
     if (options.github) {
       obj.find('.github-btn').click(function() {
         window.open('https://github.com/' + options.github);
@@ -127,7 +127,7 @@
       //$('<div class="people category-card mdl-cell mdl-cell--6-col mdl-cell--8-col-tablet mdl-card mdl-shadow--2dp"><div class="mdl-card__title mdl-card--expand"><h2 class="mdl-card__title-text">Joseph Rogers</h2></div><div class="mdl-card__supporting-text"> Fill this in Joe.</div><div class="mdl-card__actions mdl-card--border"> <button class="mdl-button mdl-js-button mdl-button--icon"> <a href="https://github.com/JosephDRogers23" target="_blank" ><span class="icon-github"></span></a> </button><button class="mdl-button mdl-js-button mdl-button--icon"> <a href="https://www.linkedin.com/in/joseph-rogers-6b327a103" target="_blank" ><span class="icon-linkedin"></span> </button></div></div>');
       $('.mdl-grid').append(Joe);
       var Alex = createPersonAboutCard('Alexander Rowden', {
-        //intro: ,
+        intro: 'Sophomore. Along with being the resident hand model of the project, I jumped between helping with the structure of the front end and the data collection of the back end.', 
         background: 'assets/images/Alex.jpg',
         github: 'Alex-Rowden',
         linkedin: 'alexander-rowden-60262bb1',
